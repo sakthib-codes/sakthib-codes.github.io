@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sakthi | Wave</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,5 27,27 5,27' fill='none' stroke='white' stroke-width='2.5' stroke-linejoin='round'/></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ff-body:'Inter',sans-serif;--ff-display:'Instrument Serif',serif;--ff-mono:'JetBrains Mono',monospace;--transition:.45s cubic-bezier(.22,1,.36,1)}
+
+/* ── PORTFOLIO DARK (default) ── */
+[data-mode="portfolio"]{
+  --bg:#0c1110;--bg2:#121815;--fg:#f0f3f1;--muted:#7a8880;
+  --accent:#4e8a5e;--accent-soft:rgba(78,138,94,.11);--accent-soft2:rgba(78,138,94,.22);
+  --card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--shell-radius:26px;
+  --bu-bg:#4e8a5e;--bu-fg:#fff;--ba-bg:rgba(255,255,255,.06);--ba-fg:#f0f3f1;--ba-bd:rgba(255,255,255,.1);
+  --chip-bg:#111815;--chip-border:rgba(255,255,255,.22);--chip-fg:#d4dbd6;
+  --chip-hover-glow:0 0 0 1px rgba(78,138,94,.6),0 0 16px rgba(78,138,94,.22);
+  --tip-bg:#f2f4f3;--tip-fg:#111511;--tip-bd:rgba(0,0,0,.12);
+}
+[data-mode="portfolio"][data-theme="light"]{
+  --bg:#f6f8f6;--bg2:#eef1ee;--fg:#111511;--muted:#5e6b5e;
+  --accent:#3a6e4c;--accent-soft:rgba(58,110,76,.09);--accent-soft2:rgba(58,110,76,.18);
+  --card:rgba(255,255,255,.8);--border:rgba(0,0,0,.1);
+  --bu-bg:#3a6e4c;--bu-fg:#fff;--ba-bg:#ffffff;--ba-fg:#111511;--ba-bd:rgba(0,0,0,.1);
+  --chip-bg:#ffffff;--chip-border:rgba(0,0,0,.18);--chip-fg:#1a2a1e;
+  --chip-hover-glow:0 0 0 1px rgba(58,110,76,.5),0 0 14px rgba(58,110,76,.15);
+  --tip-bg:#181f1a;--tip-fg:#e8ede9;--tip-bd:rgba(255,255,255,.1);
+}
+
+/* ── WAVE DARK ── */
+[data-mode="wave"]{
+  --bg:#09090b;--bg2:#111116;--fg:#f2f2f5;--muted:#6b7280;
+  --accent:#4f9eff;--accent-soft:rgba(79,158,255,.09);--accent-soft2:rgba(79,158,255,.2);
+  --card:rgba(255,255,255,.04);--border:rgba(255,255,255,.08);--shell-radius:20px;
+  --bu-bg:#4f9eff;--bu-fg:#fff;--ba-bg:rgba(255,255,255,.06);--ba-fg:#f2f2f5;--ba-bd:rgba(255,255,255,.1);
+  --chip-bg:#13131a;--chip-border:rgba(255,255,255,.22);--chip-fg:#d4d6e2;
+  --chip-hover-glow:0 0 0 1px rgba(79,158,255,.6),0 0 16px rgba(79,158,255,.22);
+  --tip-bg:#f0f1f5;--tip-fg:#0a0a0f;--tip-bd:rgba(0,0,0,.1);
+}
+[data-mode="wave"][data-theme="light"]{
+  --bg:#ffffff;--bg2:#f4f6fa;--fg:#0a0a0f;--muted:#555b6b;
+  --accent:#2563eb;--accent-soft:rgba(37,99,235,.08);--accent-soft2:rgba(37,99,235,.18);
+  --card:#f8f9fb;--border:rgba(0,0,0,.1);
+  --bu-bg:#2563eb;--bu-fg:#fff;--ba-bg:#ffffff;--ba-fg:#0a0a0f;--ba-bd:rgba(0,0,0,.1);
+  --chip-bg:#ffffff;--chip-border:rgba(0,0,0,.18);--chip-fg:#0d1526;
+  --chip-hover-glow:0 0 0 1px rgba(37,99,235,.5),0 0 14px rgba(37,99,235,.18);
+  --tip-bg:#0e1120;--tip-fg:#e2e6f5;--tip-bd:rgba(255,255,255,.12);
+}
+
+[data-mode="portfolio"] .brand-mark{display:none}
+[data-mode="portfolio"] .brand{font-family:var(--ff-display);font-style:italic;font-size:1.35rem}
+
+body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--fg);
+  transition:background var(--transition),color var(--transition);-webkit-font-smoothing:antialiased;overflow:hidden}
+
+#bgcv{position:fixed;inset:0;z-index:-1;width:100%;height:100%}
+
+/* Wave lines — centered canvas behind hero */
+#waveLinesCv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
+[data-mode="wave"] #waveLinesCv{display:block}
+
+.shell{height:100vh;width:100%;display:flex;flex-direction:column;max-width:960px;margin:0 auto;position:relative;z-index:1}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:1.3rem 1.5rem .9rem;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--ff-display);font-style:italic;font-size:1.3rem;color:var(--fg);letter-spacing:-.01em}
+.brand-mark{width:26px;height:26px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--transition)}
+.brand-mark svg{width:15px;height:12px;fill:none;stroke:var(--bg);stroke-width:2.2;stroke-linecap:round}
+
+/* Toggle — premium glass feel */
+.toggle{display:flex;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:4px;position:relative;gap:2px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+[data-theme="light"] .toggle{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.13);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.toggle button{font-family:var(--ff-body);font-size:.77rem;font-weight:600;letter-spacing:.02em;padding:6px 17px;border:none;background:none;border-radius:100px;color:var(--muted);cursor:pointer;position:relative;z-index:1;transition:color .28s}
+.toggle button.active{color:var(--bg)}
+.toggle-pill{position:absolute;top:4px;left:4px;height:calc(100% - 8px);width:calc(50% - 4px);background:var(--accent);border-radius:100px;transition:transform var(--transition),background var(--transition)}
+[data-mode="wave"] .toggle-pill{transform:translateX(100%)}
+
+/* Theme button — premium in light mode */
+.icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid transparent;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative;overflow:visible}
+[data-theme="light"] .icon-btn{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.07);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.icon-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft2)}
+[data-theme="light"] .icon-btn:hover{box-shadow:0 1px 6px rgba(0,0,0,.1)}
+.icon-btn svg{width:16px;height:16px;stroke-width:2.2}
+.icon-btn:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.icon-btn .tip{bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px)}
+
+/* STAGE — Wave gets its own scrollbar styling */
+.stage{flex:1;overflow-y:auto;padding:0 1.5rem;display:flex;flex-direction:column;scrollbar-width:none;position:relative}
+.stage::-webkit-scrollbar{width:0}
+/* Wave chat stage — thin unobtrusive scrollbar, only show on hover */
+#view-wave .wave-msgs-wrap{position:relative;flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:transparent transparent}
+#view-wave .wave-msgs-wrap:hover{scrollbar-color:var(--border) transparent}
+#view-wave .wave-msgs-wrap::-webkit-scrollbar{width:4px}
+#view-wave .wave-msgs-wrap::-webkit-scrollbar-track{background:transparent}
+#view-wave .wave-msgs-wrap::-webkit-scrollbar-thumb{background:transparent;border-radius:4px;transition:background .2s}
+#view-wave .wave-msgs-wrap:hover::-webkit-scrollbar-thumb{background:var(--border)}
+
+/* Scroll-to-bottom button — liquid glass */
+.scroll-btn{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%) translateY(8px);
+  width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
+  background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  color:var(--muted);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s,transform .22s,background .18s,border-color .18s;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);z-index:10;
+}
+[data-theme="light"] .scroll-btn{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.scroll-btn.visible{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.scroll-btn:hover{background:rgba(255,255,255,.14);border-color:var(--accent-soft2);color:var(--accent)}
+[data-theme="light"] .scroll-btn:hover{background:rgba(255,255,255,.9)}
+.scroll-btn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none}
+
+/* Wave lines canvas inside wave-empty area */
+.wave-empty{flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-bottom:2rem;position:relative;overflow:hidden}
+
+.view{flex:1;display:flex;flex-direction:column;animation:viewIn .45s cubic-bezier(.22,1,.36,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.pf-intro{padding-top:1.8rem;margin-bottom:1.4rem}
+.eyebrow{font-family:var(--ff-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.65rem;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';width:14px;height:1px;background:var(--accent)}
+.pf-intro h1{font-family:var(--ff-display);font-size:clamp(1.9rem,6.5vw,2.7rem);font-weight:400;line-height:1.13;letter-spacing:-.01em;margin-bottom:.65rem}
+.pf-intro h1 em{color:var(--accent);font-style:italic}
+.pf-intro p{font-size:.88rem;color:var(--muted);line-height:1.72;max-width:500px}
+
+/* WAVE VIEW */
+.wave-view{justify-content:flex-end}
+.wave-empty h2{font-family:var(--ff-display);font-style:italic;font-size:clamp(1.75rem,5.5vw,2.3rem);font-weight:400;color:var(--fg);margin-bottom:.45rem;letter-spacing:-.01em}
+.wave-empty h2 em{color:var(--accent)}
+.wave-empty p{font-size:.85rem;color:var(--muted);line-height:1.74;max-width:400px;margin-bottom:.5rem}
+
+/* CHIP — liquid-glass style, restrained hover */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--ff-mono);font-size:.72rem;font-weight:500;
+  padding:7px 14px;border-radius:100px;
+  background:var(--chip-bg);
+  border:1px solid var(--chip-border);
+  color:var(--chip-fg);
+  cursor:pointer;white-space:nowrap;
+  transition:box-shadow .22s,border-color .22s,color .22s,transform .18s,background .22s;
+}
+.chip:hover{
+  box-shadow:0 0 0 1px var(--accent-soft2),0 0 10px rgba(var(--accent-rgb),.12);
+  border-color:var(--accent-soft2);
+  color:var(--accent);
+  transform:translateY(-1px);
+}
+[data-mode="portfolio"] { --accent-rgb:78,138,94 }
+[data-mode="portfolio"][data-theme="light"] { --accent-rgb:58,110,76 }
+[data-mode="wave"] { --accent-rgb:79,158,255 }
+[data-mode="wave"][data-theme="light"] { --accent-rgb:37,99,235 }
+
+/* TAGS in experience — accent style (not chip style) */
+.tag{font-size:.69rem;font-weight:500;padding:3px 9px;border-radius:100px;background:var(--accent-soft);border:1px solid var(--accent-soft2);color:var(--accent)}
+
+/* CHAT */
+.wave-msgs{display:flex;flex-direction:column;gap:12px;padding:1.4rem 0}
+.msg{display:flex;max-width:100%}
+.msg.user{justify-content:flex-end}
+.msg.ai{justify-content:flex-start}
+.msg-bubble{max-width:76%;padding:10px 14px;border-radius:14px;font-size:.84rem;line-height:1.64;word-break:break-word}
+.msg.user .msg-bubble{background:var(--bu-bg);color:var(--bu-fg);border-bottom-right-radius:4px;font-weight:500}
+.msg.ai .msg-bubble{background:var(--ba-bg);border:1px solid var(--ba-bd);color:var(--ba-fg);border-bottom-left-radius:4px}
+.typing-dots{display:flex;gap:4px;align-items:center;padding:2px 0}
+.typing-dots span{width:5px;height:5px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* RICH CONTENT */
+.r-about-p{font-size:.84rem;color:var(--fg);line-height:1.78;margin-bottom:.5rem}
+.r-about-p:last-of-type{margin-bottom:.7rem}
+.r-exp-item{padding:11px 0;border-bottom:1px solid var(--border)}
+.r-exp-item:last-child{border-bottom:none;padding-bottom:0}
+.r-exp-item:first-child{padding-top:2px}
+.r-exp-role{font-size:.86rem;font-weight:700;color:var(--fg);margin-bottom:2px}
+.r-exp-co{font-size:.73rem;color:var(--accent);font-weight:500;margin-bottom:5px}
+.r-exp-yr{display:inline-block;font-family:var(--ff-mono);font-size:.63rem;background:var(--accent-soft);border:1px solid var(--accent-soft2);color:var(--accent);padding:2px 8px;border-radius:100px;margin-bottom:7px}
+.r-exp-desc{font-size:.81rem;color:var(--muted);line-height:1.7}
+.r-tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+
+/* SKILLS — chip style with tooltip */
+.r-skill-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;overflow:visible}
+.r-skill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border-radius:100px;
+  background:var(--chip-bg);
+  border:1px solid var(--chip-border);
+  font-size:.75rem;font-weight:500;color:var(--chip-fg);
+  position:relative;cursor:default;
+  transition:box-shadow .22s,border-color .22s,color .22s;
+}
+.r-skill:hover{box-shadow:0 0 0 1px var(--accent-soft2),0 0 10px rgba(var(--accent-rgb),.12);border-color:var(--accent-soft2);color:var(--accent)}
+.r-skill .dot{width:3.5px;height:3.5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.5}
+.r-skill:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+
+/* CONTACT */
+.r-contact-stack{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.r-contact-link{display:flex;align-items:center;gap:12px;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);text-decoration:none;color:var(--fg);transition:all .18s;position:relative;overflow:visible}
+.r-contact-link:hover{border-color:var(--accent-soft2);transform:translateX(3px)}
+.r-contact-link .tip{bottom:calc(100% + 7px);left:auto;right:10px;transform:translateY(4px);transform-origin:right bottom}
+.r-contact-link:hover .tip{opacity:1;transform:translateY(0);pointer-events:auto}
+.r-contact-icon{width:28px;height:28px;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.r-contact-icon svg{width:13px;height:13px;stroke-width:2}
+.r-contact-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:1px}
+.r-contact-val{font-size:.81rem;font-weight:500;color:var(--fg)}
+
+/* TOOLTIP — theme-aware (light in dark mode, dark in light mode) */
+.tip{
+  position:absolute;bottom:calc(100% + 7px);left:50%;
+  transform:translateX(-50%) translateY(4px);
+  background:var(--tip-bg);border:1px solid var(--tip-bd);color:var(--tip-fg);
+  font-size:.67rem;line-height:1.5;white-space:nowrap;padding:5px 10px;border-radius:7px;
+  opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:40;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);font-family:var(--ff-body);font-weight:400;
+}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(12px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal-content{background:var(--bg);width:100%;max-width:1100px;max-height:88vh;border-radius:20px;border:1px solid var(--border);display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.4);overflow:hidden;animation:modalPop .36s cubic-bezier(.22,1,.36,1);position:relative}
+@keyframes modalPop{from{opacity:0;transform:scale(.96) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close-wrap{position:absolute;top:14px;right:14px;z-index:10}
+.modal-close{background:var(--card);border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{background:var(--accent-soft);color:var(--accent)}
+.modal-body{flex:1;overflow-y:auto;padding:2.2rem 2.2rem 2rem}
+.modal-body::-webkit-scrollbar{width:5px}
+.modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+.modal-thread{display:flex;flex-direction:column;gap:16px;padding-top:2rem}
+.modal-q{align-self:flex-end;background:var(--bu-bg);color:var(--bu-fg);padding:9px 15px;border-radius:14px;border-bottom-right-radius:4px;font-size:.84rem;font-weight:500;max-width:55%}
+.modal-a{align-self:flex-start;background:var(--ba-bg);border:1px solid var(--ba-bd);color:var(--ba-fg);padding:16px 18px;border-radius:14px;border-bottom-left-radius:4px;font-size:.84rem;line-height:1.68;max-width:92%;width:fit-content}
+
+/* DOCK */
+.dock{flex-shrink:0;padding:1rem 1.5rem 1.4rem}
+.dock-inner{display:flex;align-items:flex-end;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:var(--shell-radius);padding:8px 8px 8px 16px;transition:border-color .25s,background var(--transition),border-radius var(--transition);backdrop-filter:blur(20px)}
+.dock-inner:focus-within{border-color:var(--accent-soft2);background:var(--bg2)}
+textarea{flex:1;background:none;border:none;outline:none;color:var(--fg);font-family:var(--ff-body);font-size:.88rem;padding:9px 0;resize:none;max-height:120px;line-height:1.5}
+textarea::placeholder{color:var(--muted);opacity:.55}
+.dock-actions{display:flex;align-items:center;gap:4px;padding-bottom:2px}
+.send-btn{width:36px;height:36px;border-radius:50%;border:none;background:var(--accent);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.send-btn:disabled{opacity:.28;cursor:default}
+.send-btn:not(:disabled):hover{transform:scale(1.07)}
+.send-btn svg{width:14px;height:14px;stroke-width:2.4;fill:none}
+
+/* Attach button in wave */
+.attach-btn{width:34px;height:34px;border-radius:10px;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative;overflow:visible}
+.attach-btn:hover{background:var(--accent-soft);color:var(--accent)}
+.attach-btn svg{width:15px;height:15px;stroke-width:2;stroke:currentColor;fill:none}
+.attach-btn:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.attach-btn .tip{bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px)}
+
+.dock-foot{font-family:var(--ff-mono);font-size:.63rem;color:var(--muted);text-align:center;margin-top:.55rem;letter-spacing:.04em;opacity:.5}
+
+/* SUGGEST STRIP — chip style */
+.suggest-strip{display:flex;gap:7px;overflow-x:auto;max-height:0;opacity:0;transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .25s,margin-bottom .35s;scrollbar-width:none}
+.suggest-strip::-webkit-scrollbar{display:none}
+.suggest-strip.open{max-height:50px;opacity:1;margin-bottom:9px}
+
+#fileInput{display:none}
+@media(max-width:480px){.topbar{padding:1rem 1rem .7rem}.stage{padding:0 1rem}.dock{padding:.8rem 1rem 1.1rem}.modal-content{max-width:100%;height:90vh}.modal-body{padding:1.2rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-mode="portfolio">
+<canvas id="bgcv"></canvas>
+
+<div class="shell">
+  <div class="topbar">
+    <div class="brand" id="brandText">
+      <!-- Three-wave SVG icon for Wave mode; hidden in portfolio -->
+      <div class="brand-mark">
+        <svg viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 11 Q3.5 8 6 11 T11 11 T16 11 T21 11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 7 Q3.5 4 6 7 T11 7 T16 7 T21 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 3 Q3.5 0 6 3 T11 3 T16 3 T21 3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span id="brandLabel">Sakthi</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="toggle" id="toggle">
+        <div class="toggle-pill"></div>
+        <button class="active" data-mode="portfolio">Portfolio</button>
+        <button data-mode="wave">Wave</button>
+      </div>
+      <!-- Theme toggle with tooltip -->
+      <button class="icon-btn" id="themeBtn">
+        <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        <svg id="iconSun" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <span class="tip" id="themeTip">Switch to light mode</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+    <!-- PORTFOLIO VIEW -->
+    <div class="view" id="view-portfolio">
+      <div class="pf-intro">
+        <div class="eyebrow">Generative AI Engineer</div>
+        <h1>Building Intelligent <em>Systems.</em></h1>
+        <p>I'm Sakthi. Around 2.5 years working with RAG pipelines, LLMs, and semantic search. Tap a question below to learn more.</p>
+      </div>
+    </div>
+
+    <!-- WAVE VIEW -->
+    <div class="view wave-view" id="view-wave" style="display:none">
+      <div class="wave-empty" id="waveEmpty">
+        <canvas id="waveLinesCv"></canvas>
+        <div style="position:relative;z-index:1">
+        <div class="eyebrow">AI Assistant</div>
+        <h2>Hey, I'm <em>Wave.</em></h2>
+        <p>Ask me anything, or drop in a document and I'll read through it so you can ask questions about it directly.</p>
+        </div>
+      </div>
+      <div class="wave-msgs-wrap" id="waveMsgsWrap" style="display:none;position:relative;flex:1;overflow-y:auto">
+        <div class="wave-msgs" id="waveMsgs"></div>
+        <button class="scroll-btn" id="scrollBtn" aria-label="Scroll to latest">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dock">
+    <div class="suggest-strip" id="suggestStrip"></div>
+    <div id="docChipWrap"></div>
+    <div class="dock-inner">
+      <!-- Attach button — Wave only, with tooltip -->
+      <button class="attach-btn" id="attachBtn" style="display:none">
+        <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+        <span class="tip">Attach a document</span>
+      </button>
+      <input type="file" id="fileInput" accept=".pdf,.csv,.docx"/>
+      <textarea id="msgInput" rows="1" placeholder="Ask a question…"></textarea>
+      <div class="dock-actions">
+        <button class="send-btn" id="sendBtn" disabled>
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="dock-foot" id="dockFoot">Portfolio mode: answers are pre-written, not AI-generated</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="modal-close-wrap">
+      <button class="modal-close" id="modalClose">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-thread" id="modalThread"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const body=document.body;
+const themeBtn=document.getElementById('themeBtn');
+const themeTip=document.getElementById('themeTip');
+const iconMoon=document.getElementById('iconMoon');
+const iconSun=document.getElementById('iconSun');
+
+themeBtn.addEventListener('click',()=>{
+  const isLight=body.dataset.theme==='light';
+  if(isLight){
+    delete body.dataset.theme;
+    iconMoon.style.display='';iconSun.style.display='none';
+    themeTip.textContent='Switch to light mode';
+  }else{
+    body.dataset.theme='light';
+    iconMoon.style.display='none';iconSun.style.display='';
+    themeTip.textContent='Switch to dark mode';
+  }
+});
+
+const brandLabel=document.getElementById('brandLabel');
+const toggle=document.getElementById('toggle');
+const viewPortfolio=document.getElementById('view-portfolio');
+const viewWave=document.getElementById('view-wave');
+const msgInput=document.getElementById('msgInput');
+const sendBtn=document.getElementById('sendBtn');
+const attachBtn=document.getElementById('attachBtn');
+const dockFoot=document.getElementById('dockFoot');
+const suggestStrip=document.getElementById('suggestStrip');
+const modalOverlay=document.getElementById('modalOverlay');
+const modalThread=document.getElementById('modalThread');
+const modalClose=document.getElementById('modalClose');
+
+toggle.addEventListener('click',e=>{
+  const btn=e.target.closest('button[data-mode]');
+  if(!btn)return;
+  const mode=btn.dataset.mode;
+  if(body.dataset.mode===mode)return;
+  body.dataset.mode=mode;
+  toggle.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  suggestStrip.classList.remove('open');
+  if(mode==='portfolio'){
+    viewWave.style.display='none';viewPortfolio.style.display='flex';
+    msgInput.placeholder='Ask a question…';
+    attachBtn.style.display='none';
+    dockFoot.textContent='Portfolio mode: answers are pre-written, not AI-generated';
+    brandLabel.textContent='Sakthi';
+  }else{
+    viewPortfolio.style.display='none';viewWave.style.display='flex';
+    msgInput.placeholder='Message Wave…';
+    attachBtn.style.display='flex';
+    dockFoot.textContent='Wave mode: general AI assistant, can read uploaded documents.';
+    brandLabel.textContent='Wave';
+  }
+  msgInput.value='';sendBtn.disabled=true;
+});
+
+/* Suggest strip on focus — portfolio chips and wave chips both use .chip class */
+const pfData=[
+  {q:'A bit about him',a:`<p class="r-about-p">Sakthi is a Generative AI Engineer with around 2.5 years of experience working on RAG pipelines, LLM integrations, and semantic search. His work has mostly involved data ingestion, embeddings, retrieval tuning, and prompt design, with a focus on getting the outputs to actually be reliable and useful.</p><p class="r-about-p">He has worked on projects in investment banking and healthcare, both involving building AI on top of large document collections. Most of the cloud work has been on AWS, using Bedrock, Lambda, and S3.</p>`},
+  {q:'Where he worked',a:`<div class="r-exp-item"><div class="r-exp-role">Generative AI Engineer</div><div class="r-exp-co">Data-driven IT Services Company</div><span class="r-exp-yr">Apr 2025 to present, Chennai</span><div class="r-exp-desc">Working on an AI-powered document search platform for a Swedish investment bank, built on AWS Bedrock using Claude. This involves hybrid RAG pipelines with LlamaIndex and Pinecone, automated summarisation for compliance documents, and serverless ingestion pipelines using Lambda and Step Functions. Prompt versioning and context compression helped bring down token costs, and teams spend less time on manual document review.</div><div class="r-tag-row"><span class="tag">AWS Bedrock</span><span class="tag">Claude LLM</span><span class="tag">LlamaIndex</span><span class="tag">Pinecone</span><span class="tag">Lambda</span><span class="tag">Step Functions</span><span class="tag">Docker</span></div></div><div class="r-exp-item"><div class="r-exp-role">Generative AI Developer</div><div class="r-exp-co">Digital Transformation &amp; IT Services Company</div><span class="r-exp-yr">Nov 2023 to Mar 2025, Bangalore</span><div class="r-exp-desc">Built an enterprise knowledge bot for a US healthcare client over 2000+ clinical documents, covering medical policies, provider manuals, and health plan docs. Used SentenceTransformers and FAISS for retrieval, with a LangChain chatbot on top for internal queries. Response accuracy improved through structured prompting and context filtering, and search effort for internal teams reduced noticeably.</div><div class="r-tag-row"><span class="tag">LangChain</span><span class="tag">SentenceTransformers</span><span class="tag">FAISS</span><span class="tag">Python</span><span class="tag">Lambda</span><span class="tag">S3</span></div></div>`},
+  {q:'What he works with',a:`<div class="r-skill-wrap"><div class="r-skill"><span class="dot"></span>Retrieval-Augmented Generation<span class="tip">Building pipelines that ground LLM outputs in actual documents</span></div><div class="r-skill"><span class="dot"></span>Large Language Models<span class="tip">Working with LLMs via APIs for search, Q&amp;A, and summarisation tasks</span></div><div class="r-skill"><span class="dot"></span>Prompt Engineering<span class="tip">Structuring prompts for consistent, reliable outputs across query types</span></div><div class="r-skill"><span class="dot"></span>Semantic Search<span class="tip">Embedding-based similarity search over large document collections</span></div><div class="r-skill"><span class="dot"></span>Python<span class="tip">Primary language for pipeline development, scripting, and integrations</span></div><div class="r-skill"><span class="dot"></span>AWS Bedrock / Lambda / S3<span class="tip">Cloud-native AI hosting, serverless pipelines, and document storage on AWS</span></div><div class="r-skill"><span class="dot"></span>LangChain / LlamaIndex<span class="tip">Orchestration frameworks used across both roles for RAG and chatbot work</span></div><div class="r-skill"><span class="dot"></span>Vector Databases<span class="tip">Pinecone and FAISS for storing and querying embeddings at scale</span></div><div class="r-skill"><span class="dot"></span>FastAPI<span class="tip">Exposing AI capabilities as REST endpoints</span></div><div class="r-skill"><span class="dot"></span>Fine-tuning &amp; Evaluation<span class="tip">Iterating on model behaviour and measuring output quality</span></div><div class="r-skill"><span class="dot"></span>Embeddings<span class="tip">SentenceTransformers for dense vector representations of text</span></div><div class="r-skill"><span class="dot"></span>NLP<span class="tip">Text classification, similarity, chunking, and extraction tasks</span></div></div>`},
+  {q:'How to reach him',a:`<p class="r-about-p">Open to project conversations, roles, or just a chat.</p><div class="r-contact-stack"><a href="mailto:sakthigrish.in@gmail.com" class="r-contact-link"><div class="r-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="r-contact-lbl">Email</div><div class="r-contact-val">sakthigrish.in@gmail.com</div></div><span class="tip">Usually replies within a day</span></a><a href="https://linkedin.com/in/sakthigrish04" target="_blank" class="r-contact-link"><div class="r-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><div class="r-contact-lbl">LinkedIn</div><div class="r-contact-val">linkedin.com/in/sakthigrish04</div></div><span class="tip">Open to connect</span></a></div>`}
+];
+
+const waveChips=[
+  {label:'Write a bio',fill:'Write a short professional bio for a software engineer'},
+  {label:'SQL vs NoSQL',fill:'Explain the difference between SQL and NoSQL databases'},
+  {label:'Review code',fill:'Review this code and suggest improvements'},
+  {label:'Draft an email',fill:'Help me draft a cold outreach email'},
+];
+
+msgInput.addEventListener('focus',()=>{
+  suggestStrip.innerHTML='';
+  if(body.dataset.mode==='portfolio'){
+    pfData.forEach(item=>{
+      const chip=document.createElement('div');
+      chip.className='chip';chip.textContent=item.q;
+      chip.onclick=()=>askPortfolioQuestion(item);
+      suggestStrip.appendChild(chip);
+    });
+  }else{
+    waveChips.forEach(item=>{
+      const chip=document.createElement('div');
+      chip.className='chip';chip.textContent=item.label;
+      chip.onclick=()=>{msgInput.value='';sendWaveMessage(item.fill)};
+      suggestStrip.appendChild(chip);
+    });
+  }
+  suggestStrip.classList.add('open');
+});
+msgInput.addEventListener('blur',()=>{setTimeout(()=>suggestStrip.classList.remove('open'),160)});
+msgInput.addEventListener('input',()=>{
+  msgInput.style.height='auto';
+  msgInput.style.height=Math.min(msgInput.scrollHeight,120)+'px';
+  sendBtn.disabled=!msgInput.value.trim();
+});
+msgInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleSend();}});
+sendBtn.addEventListener('click',handleSend);
+attachBtn.addEventListener('click',()=>document.getElementById('fileInput').click());
+document.getElementById('fileInput').addEventListener('change', e => {
+  if (e.target.files[0]) sendWaveFile(e.target.files[0]);
+  e.target.value = '';
+});
+
+function handleSend(){
+  const text=msgInput.value.trim();
+  if(!text)return;
+  if(body.dataset.mode==='portfolio'){
+    openModal();appendModalQ(text);
+    setTimeout(()=>appendModalA('Tap one of the chips above to get a pre-written answer, or switch to Wave for a live conversation.'),400);
+  }else{
+    sendWaveMessage(text);
+  }
+  msgInput.value='';msgInput.style.height='auto';sendBtn.disabled=true;
+  suggestStrip.classList.remove('open');
+}
+
+function openModal(){modalOverlay.classList.add('active');body.style.overflow='hidden'}
+function closeModal(){modalOverlay.classList.remove('active');body.style.overflow=''}
+modalClose.onclick=closeModal;
+modalOverlay.onclick=e=>{if(e.target===modalOverlay)closeModal()};
+
+function appendModalQ(text){
+  const el=document.createElement('div');el.className='modal-q';el.textContent=text;
+  modalThread.appendChild(el);scroll();
+}
+function appendModalA(html){
+  const el=document.createElement('div');el.className='modal-a';el.innerHTML=html;
+  modalThread.appendChild(el);scroll();
+}
+function scroll(){modalThread.parentElement.scrollTo({top:modalThread.parentElement.scrollHeight,behavior:'smooth'})}
+
+function askPortfolioQuestion(item){
+  openModal();modalThread.innerHTML='';
+  appendModalQ(item.q);setTimeout(()=>appendModalA(item.a),320);
+}
+
+/* WAVE */
+const waveMsgs=document.getElementById('waveMsgs');
+const waveEmpty=document.getElementById('waveEmpty');
+const waveMsgsWrap=document.getElementById('waveMsgsWrap');
+const scrollBtn=document.getElementById('scrollBtn');
+let waveHistory=[];
+const waveSessionId = crypto.randomUUID();
+const WAVE_BACKEND = 'https://sakthxe-wave-backend.hf.space';
+
+/* Scroll-to-bottom button logic */
+function updateScrollBtn(){
+  if(!waveMsgsWrap)return;
+  const atBottom=waveMsgsWrap.scrollHeight-waveMsgsWrap.scrollTop-waveMsgsWrap.clientHeight<60;
+  scrollBtn.classList.toggle('visible',!atBottom);
+}
+waveMsgsWrap.addEventListener('scroll',updateScrollBtn,{passive:true});
+scrollBtn.addEventListener('click',()=>{
+  waveMsgsWrap.scrollTo({top:waveMsgsWrap.scrollHeight,behavior:'smooth'});
+});
+
+function waveScroll(){waveMsgsWrap.scrollTo({top:waveMsgsWrap.scrollHeight,behavior:'smooth'})}
+
+async function sendWaveMessage(text) {
+  waveEmpty.style.display = 'none';
+  waveMsgsWrap.style.display = 'block';
+
+  const userMsg = document.createElement('div');
+  userMsg.className = 'msg user';
+  userMsg.innerHTML = '<div class="msg-bubble">' + escHtml(text) + '</div>';
+  waveMsgs.appendChild(userMsg);
+
+  const aiMsg = document.createElement('div');
+  aiMsg.className = 'msg ai';
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  aiMsg.appendChild(bubble);
+  waveMsgs.appendChild(aiMsg);
+
+  waveScroll();
+
+  waveHistory.push({ role: 'user', content: text });
+
+  let firstToken = true;
+  let fullText = '';
+
+  try {
+    const response = await fetch(`${WAVE_BACKEND}/chat/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ session_id: waveSessionId, message: text }),
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        let event;
+        try { event = JSON.parse(line.slice(6)); } catch { continue; }
+
+        if (event.type === 'token') {
+          if (firstToken) { bubble.innerHTML = ''; firstToken = false; }
+          fullText += event.content;
+          bubble.innerHTML = escHtml(fullText).replace(/\n/g, '<br>');
+          waveScroll();
+
+        } else if (event.type === 'citations') {
+          const citeEl = document.createElement('div');
+          citeEl.style.cssText = 'margin-top:8px;font-size:.75rem;color:var(--muted)';
+          const items = event.content.map(c =>
+            `<span style="display:inline-block;background:var(--accent-soft);border:1px solid var(--accent-soft2);border-radius:6px;padding:2px 8px;margin:2px 4px 2px 0">📄 ${escHtml(c.source)} · p.${c.page}</span>`
+          ).join('');
+          citeEl.innerHTML = `<div style="font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;font-family:var(--ff-mono)">Sources</div>${items}`;
+          aiMsg.appendChild(citeEl);
+
+        } else if (event.type === 'done') {
+          waveHistory.push({ role: 'assistant', content: fullText });
+          setTimeout(updateScrollBtn, 120);
+        }
+      }
+    }
+} catch (err) {
+    bubble.textContent = 'Could not reach Wave right now. Please try again.';
+    console.error('[Wave]', err);
+  }
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+async function sendWaveFile(file) {
+  waveEmpty.style.display = 'none';
+  waveMsgsWrap.style.display = 'block';
+
+  const statusMsg = document.createElement('div');
+  statusMsg.className = 'msg ai';
+  statusMsg.innerHTML = `<div class="msg-bubble">📎 Uploading <strong>${escHtml(file.name)}</strong>…</div>`;
+  waveMsgs.appendChild(statusMsg);
+  waveScroll();
+
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('session_id', waveSessionId);
+
+  try {
+    const res = await fetch(`${WAVE_BACKEND}/upload`, { method: 'POST', body: formData });
+    const data = await res.json();
+    if (res.ok) {
+      statusMsg.querySelector('.msg-bubble').innerHTML =
+        `✅ <strong>${escHtml(file.name)}</strong> indexed (${data.chunks_indexed} chunks).<br>Ask me anything about it!`;
+    } else {
+      statusMsg.querySelector('.msg-bubble').innerHTML =
+        `❌ Upload failed: ${escHtml(data.detail || 'Unknown error')}`;
+    }
+  } catch {
+    statusMsg.querySelector('.msg-bubble').textContent = '❌ Upload failed. Please try again.';
+  }
+  waveScroll();
+}
+
+/* AMBIENT CANVAS (particle field) */
+const cv=document.getElementById('bgcv');
+const ctx=cv.getContext('2d');
+let w,h,pts=[];
+function init(){
+  w=cv.width=window.innerWidth;h=cv.height=window.innerHeight;pts=[];
+  for(let i=0;i<26;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32});
+}
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle=getComputedStyle(body).getPropertyValue('--accent').trim();
+  ctx.globalAlpha=0.1;
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+    ctx.beginPath();ctx.arc(p.x,p.y,1.3,0,Math.PI*2);ctx.fill();
+  });
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',init);init();draw();
+
+/* WAVE LINES CANVAS — flowing centered lines in wave hero */
+(function(){
+  const lc=document.getElementById('waveLinesCv');
+  if(!lc)return;
+  const lx=lc.getContext('2d');
+  let lt=0;
+
+  function resizeLines(){
+    const p=lc.parentElement;
+    lc.width=p.offsetWidth;lc.height=p.offsetHeight;
+  }
+
+  function drawLines(ts){
+    if(body.dataset.mode!=='wave'){requestAnimationFrame(drawLines);return}
+    resizeLines();
+    lx.clearRect(0,0,lc.width,lc.height);
+    const t=ts*0.00028;
+    const accentRaw=getComputedStyle(body).getPropertyValue('--accent').trim();
+    const isLight=body.dataset.theme==='light';
+    const lineAlpha=isLight?0.07:0.09;
+    const numLines=5;
+    const cx=lc.width/2;
+    const cy=lc.height/2;
+
+    for(let i=0;i<numLines;i++){
+      const phase=(i/numLines)*Math.PI*2;
+      const yOff=(i-numLines/2)*28;
+      lx.beginPath();
+      lx.strokeStyle=accentRaw;
+      lx.globalAlpha=lineAlpha*(1-Math.abs(i-numLines/2)/numLines*0.5);
+      lx.lineWidth=1;
+      lx.shadowBlur=0;
+      for(let px=0;px<=lc.width;px+=3){
+        const nx=(px-cx)/lc.width;
+        const ny=Math.sin(nx*Math.PI*2.2+t+phase)*14
+                +Math.sin(nx*Math.PI*3.8+t*0.7+phase)*7
+                +Math.cos(nx*Math.PI*1.4+t*0.5+phase)*5;
+        if(px===0)lx.moveTo(px,cy+yOff+ny);
+        else lx.lineTo(px,cy+yOff+ny);
+      }
+      lx.stroke();
+    }
+    requestAnimationFrame(drawLines);
+  }
+  requestAnimationFrame(drawLines);
+})();
+</script>
+</body>
+</html>
