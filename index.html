@@ -60,7 +60,6 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 
 #bgcv{position:fixed;inset:0;z-index:-1;width:100%;height:100%}
 
-/* Wave lines — centered canvas behind hero */
 #waveLinesCv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none}
 [data-mode="wave"] #waveLinesCv{display:block}
 
@@ -71,16 +70,12 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .brand{display:flex;align-items:center;gap:9px;font-family:var(--ff-display);font-style:italic;font-size:1.3rem;color:var(--fg);letter-spacing:-.01em}
 .brand-mark{width:26px;height:26px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background var(--transition)}
 .brand-mark svg{width:15px;height:12px;fill:none;stroke:var(--bg);stroke-width:2.2;stroke-linecap:round}
-
-/* Toggle — premium glass feel */
 .toggle{display:flex;background:var(--card);border:1px solid var(--border);border-radius:100px;padding:4px;position:relative;gap:2px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 [data-theme="light"] .toggle{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.13);box-shadow:0 1px 4px rgba(0,0,0,.07)}
 .toggle button{font-family:var(--ff-body);font-size:.77rem;font-weight:600;letter-spacing:.02em;padding:6px 17px;border:none;background:none;border-radius:100px;color:var(--muted);cursor:pointer;position:relative;z-index:1;transition:color .28s}
 .toggle button.active{color:var(--bg)}
 .toggle-pill{position:absolute;top:4px;left:4px;height:calc(100% - 8px);width:calc(50% - 4px);background:var(--accent);border-radius:100px;transition:transform var(--transition),background var(--transition)}
 [data-mode="wave"] .toggle-pill{transform:translateX(100%)}
-
-/* Theme button — premium in light mode */
 .icon-btn{width:34px;height:34px;border-radius:10px;border:1px solid transparent;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative;overflow:visible}
 [data-theme="light"] .icon-btn{background:rgba(255,255,255,.72);border-color:rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.07);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .icon-btn:hover{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-soft2)}
@@ -89,24 +84,20 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .icon-btn:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .icon-btn .tip{bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px)}
 
-/* STAGE — Wave gets its own scrollbar styling */
+/* STAGE */
 .stage{flex:1;overflow-y:auto;padding:0 1.5rem;display:flex;flex-direction:column;scrollbar-width:none;position:relative}
 .stage::-webkit-scrollbar{width:0}
-/* Wave chat stage — thin unobtrusive scrollbar, only show on hover */
 #view-wave .wave-msgs-wrap{position:relative;flex:1;overflow-y:auto;scrollbar-width:thin;scrollbar-color:transparent transparent}
 #view-wave .wave-msgs-wrap:hover{scrollbar-color:var(--border) transparent}
 #view-wave .wave-msgs-wrap::-webkit-scrollbar{width:4px}
 #view-wave .wave-msgs-wrap::-webkit-scrollbar-track{background:transparent}
 #view-wave .wave-msgs-wrap::-webkit-scrollbar-thumb{background:transparent;border-radius:4px;transition:background .2s}
 #view-wave .wave-msgs-wrap:hover::-webkit-scrollbar-thumb{background:var(--border)}
-
-/* Scroll-to-bottom button — liquid glass */
 .scroll-btn{
   position:absolute;bottom:16px;left:50%;transform:translateX(-50%) translateY(8px);
   width:32px;height:32px;border-radius:50%;border:1px solid var(--border);
   background:rgba(255,255,255,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  color:var(--muted);cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;
   opacity:0;pointer-events:none;
   transition:opacity .22s,transform .22s,background .18s,border-color .18s;
   box-shadow:0 2px 12px rgba(0,0,0,.18);z-index:10;
@@ -116,13 +107,9 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .scroll-btn:hover{background:rgba(255,255,255,.14);border-color:var(--accent-soft2);color:var(--accent)}
 [data-theme="light"] .scroll-btn:hover{background:rgba(255,255,255,.9)}
 .scroll-btn svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.2;fill:none}
-
-/* Wave lines canvas inside wave-empty area */
 .wave-empty{flex:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding-bottom:2rem;position:relative;overflow:hidden}
-
 .view{flex:1;display:flex;flex-direction:column;animation:viewIn .45s cubic-bezier(.22,1,.36,1)}
 @keyframes viewIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
 .pf-intro{padding-top:1.8rem;margin-bottom:1.4rem}
 .eyebrow{font-family:var(--ff-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.65rem;display:flex;align-items:center;gap:8px}
 .eyebrow::before{content:'';width:14px;height:1px;background:var(--accent)}
@@ -136,39 +123,49 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .wave-empty h2 em{color:var(--accent)}
 .wave-empty p{font-size:.85rem;color:var(--muted);line-height:1.74;max-width:400px;margin-bottom:.5rem}
 
-/* CHIP — liquid-glass style, restrained hover */
+/* CHIP */
 .chip{
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--ff-mono);font-size:.72rem;font-weight:500;
   padding:7px 14px;border-radius:100px;
-  background:var(--chip-bg);
-  border:1px solid var(--chip-border);
-  color:var(--chip-fg);
+  background:var(--chip-bg);border:1px solid var(--chip-border);color:var(--chip-fg);
   cursor:pointer;white-space:nowrap;
   transition:box-shadow .22s,border-color .22s,color .22s,transform .18s,background .22s;
 }
 .chip:hover{
   box-shadow:0 0 0 1px var(--accent-soft2),0 0 10px rgba(var(--accent-rgb),.12);
-  border-color:var(--accent-soft2);
-  color:var(--accent);
-  transform:translateY(-1px);
+  border-color:var(--accent-soft2);color:var(--accent);transform:translateY(-1px);
 }
-[data-mode="portfolio"] { --accent-rgb:78,138,94 }
-[data-mode="portfolio"][data-theme="light"] { --accent-rgb:58,110,76 }
-[data-mode="wave"] { --accent-rgb:79,158,255 }
-[data-mode="wave"][data-theme="light"] { --accent-rgb:37,99,235 }
-
-/* TAGS in experience — accent style (not chip style) */
+[data-mode="portfolio"]{--accent-rgb:78,138,94}
+[data-mode="portfolio"][data-theme="light"]{--accent-rgb:58,110,76}
+[data-mode="wave"]{--accent-rgb:79,158,255}
+[data-mode="wave"][data-theme="light"]{--accent-rgb:37,99,235}
 .tag{font-size:.69rem;font-weight:500;padding:3px 9px;border-radius:100px;background:var(--accent-soft);border:1px solid var(--accent-soft2);color:var(--accent)}
 
 /* CHAT */
 .wave-msgs{display:flex;flex-direction:column;gap:12px;padding:1.4rem 0}
 .msg{display:flex;max-width:100%}
 .msg.user{justify-content:flex-end}
-.msg.ai{justify-content:flex-start}
+.msg.ai{justify-content:flex-start;flex-direction:column;align-items:flex-start;gap:6px}
 .msg-bubble{max-width:76%;padding:10px 14px;border-radius:14px;font-size:.84rem;line-height:1.64;word-break:break-word}
+.msg-bubble strong{font-weight:700}
+.msg-bubble em{font-style:italic}
+.msg-bubble code{font-family:var(--ff-mono);font-size:.78rem;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.msg-bubble pre{background:var(--accent-soft);border:1px solid var(--accent-soft2);border-radius:8px;padding:10px 12px;overflow-x:auto;margin:6px 0}
+.msg-bubble pre code{background:none;padding:0}
+.msg-bubble ul{margin:6px 0 6px 18px;padding:0}
+.msg-bubble li{margin-bottom:3px}
+.stream-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:text-bottom;margin-left:1px;animation:blink 0.9s step-end infinite}
+@keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+.msg.ai .msg-bubble{animation:fadeInBubble .25s ease}
+@keyframes fadeInBubble{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .msg.user .msg-bubble{background:var(--bu-bg);color:var(--bu-fg);border-bottom-right-radius:4px;font-weight:500}
 .msg.ai .msg-bubble{background:var(--ba-bg);border:1px solid var(--ba-bd);color:var(--ba-fg);border-bottom-left-radius:4px}
+.msg-citations{width:100%;margin-top:6px;display:flex;flex-direction:column;gap:4px}
+.cite-label{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.cite-item{font-size:.74rem;color:var(--muted);background:var(--accent-soft);border:1px solid var(--accent-soft2);border-radius:8px;padding:5px 10px;display:flex;align-items:center;gap:6px}
+.cite-icon{font-style:normal}
+.cite-page{color:var(--accent);font-weight:500}
 .typing-dots{display:flex;gap:4px;align-items:center;padding:2px 0}
 .typing-dots span{width:5px;height:5px;border-radius:50%;background:var(--muted);animation:bounce 1.2s infinite}
 .typing-dots span:nth-child(2){animation-delay:.2s}
@@ -186,14 +183,11 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .r-exp-yr{display:inline-block;font-family:var(--ff-mono);font-size:.63rem;background:var(--accent-soft);border:1px solid var(--accent-soft2);color:var(--accent);padding:2px 8px;border-radius:100px;margin-bottom:7px}
 .r-exp-desc{font-size:.81rem;color:var(--muted);line-height:1.7}
 .r-tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-
-/* SKILLS — chip style with tooltip */
 .r-skill-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px;overflow:visible}
 .r-skill{
   display:inline-flex;align-items:center;gap:5px;
   padding:6px 12px;border-radius:100px;
-  background:var(--chip-bg);
-  border:1px solid var(--chip-border);
+  background:var(--chip-bg);border:1px solid var(--chip-border);
   font-size:.75rem;font-weight:500;color:var(--chip-fg);
   position:relative;cursor:default;
   transition:box-shadow .22s,border-color .22s,color .22s;
@@ -201,8 +195,6 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .r-skill:hover{box-shadow:0 0 0 1px var(--accent-soft2),0 0 10px rgba(var(--accent-rgb),.12);border-color:var(--accent-soft2);color:var(--accent)}
 .r-skill .dot{width:3.5px;height:3.5px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:.5}
 .r-skill:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
-
-/* CONTACT */
 .r-contact-stack{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 .r-contact-link{display:flex;align-items:center;gap:12px;padding:10px 13px;border-radius:10px;border:1px solid var(--border);background:var(--card);text-decoration:none;color:var(--fg);transition:all .18s;position:relative;overflow:visible}
 .r-contact-link:hover{border-color:var(--accent-soft2);transform:translateX(3px)}
@@ -212,8 +204,6 @@ body{font-family:var(--ff-body);font-size:15px;background:var(--bg);color:var(--
 .r-contact-icon svg{width:13px;height:13px;stroke-width:2}
 .r-contact-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:1px}
 .r-contact-val{font-size:.81rem;font-weight:500;color:var(--fg)}
-
-/* TOOLTIP — theme-aware (light in dark mode, dark in light mode) */
 .tip{
   position:absolute;bottom:calc(100% + 7px);left:50%;
   transform:translateX(-50%) translateY(4px);
@@ -249,21 +239,21 @@ textarea::placeholder{color:var(--muted);opacity:.55}
 .send-btn:disabled{opacity:.28;cursor:default}
 .send-btn:not(:disabled):hover{transform:scale(1.07)}
 .send-btn svg{width:14px;height:14px;stroke-width:2.4;fill:none}
-
-/* Attach button in wave */
 .attach-btn{width:34px;height:34px;border-radius:10px;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;position:relative;overflow:visible}
 .attach-btn:hover{background:var(--accent-soft);color:var(--accent)}
 .attach-btn svg{width:15px;height:15px;stroke-width:2;stroke:currentColor;fill:none}
 .attach-btn:hover .tip{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
 .attach-btn .tip{bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px)}
-
 .dock-foot{font-family:var(--ff-mono);font-size:.63rem;color:var(--muted);text-align:center;margin-top:.55rem;letter-spacing:.04em;opacity:.5}
-
-/* SUGGEST STRIP — chip style */
+.usage-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:.6rem;padding:0 2px}
+.usage-bar-track{flex:1;height:3px;border-radius:100px;background:var(--accent-soft);overflow:hidden}
+.usage-bar-fill{height:100%;border-radius:100px;background:var(--accent);width:0%;transition:width .4s ease}
+.usage-bar-fill.warn{background:#e0a030}
+.usage-bar-fill.danger{background:#e05050}
+.usage-bar-label{font-family:var(--ff-mono);font-size:.62rem;color:var(--muted);letter-spacing:.04em;white-space:nowrap;opacity:.7}
 .suggest-strip{display:flex;gap:7px;overflow-x:auto;max-height:0;opacity:0;transition:max-height .35s cubic-bezier(.22,1,.36,1),opacity .25s,margin-bottom .35s;scrollbar-width:none}
 .suggest-strip::-webkit-scrollbar{display:none}
 .suggest-strip.open{max-height:50px;opacity:1;margin-bottom:9px}
-
 #fileInput{display:none}
 @media(max-width:480px){.topbar{padding:1rem 1rem .7rem}.stage{padding:0 1rem}.dock{padding:.8rem 1rem 1.1rem}.modal-content{max-width:100%;height:90vh}.modal-body{padding:1.2rem}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -275,7 +265,6 @@ textarea::placeholder{color:var(--muted);opacity:.55}
 <div class="shell">
   <div class="topbar">
     <div class="brand" id="brandText">
-      <!-- Three-wave SVG icon for Wave mode; hidden in portfolio -->
       <div class="brand-mark">
         <svg viewBox="0 0 22 14" xmlns="http://www.w3.org/2000/svg">
           <path d="M1 11 Q3.5 8 6 11 T11 11 T16 11 T21 11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -291,7 +280,6 @@ textarea::placeholder{color:var(--muted);opacity:.55}
         <button class="active" data-mode="portfolio">Portfolio</button>
         <button data-mode="wave">Wave</button>
       </div>
-      <!-- Theme toggle with tooltip -->
       <button class="icon-btn" id="themeBtn">
         <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         <svg id="iconSun" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -301,7 +289,6 @@ textarea::placeholder{color:var(--muted);opacity:.55}
   </div>
 
   <div class="stage" id="stage">
-    <!-- PORTFOLIO VIEW -->
     <div class="view" id="view-portfolio">
       <div class="pf-intro">
         <div class="eyebrow">Generative AI Engineer</div>
@@ -310,14 +297,13 @@ textarea::placeholder{color:var(--muted);opacity:.55}
       </div>
     </div>
 
-    <!-- WAVE VIEW -->
     <div class="view wave-view" id="view-wave" style="display:none">
       <div class="wave-empty" id="waveEmpty">
         <canvas id="waveLinesCv"></canvas>
         <div style="position:relative;z-index:1">
-        <div class="eyebrow">AI Assistant</div>
-        <h2>Hey, I'm <em>Wave.</em></h2>
-        <p>Ask me anything, or drop in a document and I'll read through it so you can ask questions about it directly.</p>
+          <div class="eyebrow">AI Assistant</div>
+          <h2>Hey, I'm <em>Wave.</em></h2>
+          <p>Ask me anything, or drop in a document and I'll read through it so you can ask questions about it directly.</p>
         </div>
       </div>
       <div class="wave-msgs-wrap" id="waveMsgsWrap" style="display:none;position:relative;flex:1;overflow-y:auto">
@@ -333,7 +319,6 @@ textarea::placeholder{color:var(--muted);opacity:.55}
     <div class="suggest-strip" id="suggestStrip"></div>
     <div id="docChipWrap"></div>
     <div class="dock-inner">
-      <!-- Attach button — Wave only, with tooltip -->
       <button class="attach-btn" id="attachBtn" style="display:none">
         <svg viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
         <span class="tip">Attach a document</span>
@@ -347,6 +332,12 @@ textarea::placeholder{color:var(--muted);opacity:.55}
       </div>
     </div>
     <div class="dock-foot" id="dockFoot">Portfolio mode: answers are pre-written, not AI-generated</div>
+    <div class="usage-bar-wrap" id="usageBarWrap" style="display:none">
+      <div class="usage-bar-track">
+        <div class="usage-bar-fill" id="usageBarFill"></div>
+      </div>
+      <span class="usage-bar-label" id="usageBarLabel">0% used today</span>
+    </div>
   </div>
 </div>
 
@@ -365,165 +356,249 @@ textarea::placeholder{color:var(--muted);opacity:.55}
 </div>
 
 <script>
-const body=document.body;
-const themeBtn=document.getElementById('themeBtn');
-const themeTip=document.getElementById('themeTip');
-const iconMoon=document.getElementById('iconMoon');
-const iconSun=document.getElementById('iconSun');
+const body = document.body;
+const themeBtn = document.getElementById('themeBtn');
+const themeTip = document.getElementById('themeTip');
+const iconMoon = document.getElementById('iconMoon');
+const iconSun = document.getElementById('iconSun');
 
-themeBtn.addEventListener('click',()=>{
-  const isLight=body.dataset.theme==='light';
-  if(isLight){
+themeBtn.addEventListener('click', () => {
+  const isLight = body.dataset.theme === 'light';
+  if (isLight) {
     delete body.dataset.theme;
-    iconMoon.style.display='';iconSun.style.display='none';
-    themeTip.textContent='Switch to light mode';
-  }else{
-    body.dataset.theme='light';
-    iconMoon.style.display='none';iconSun.style.display='';
-    themeTip.textContent='Switch to dark mode';
+    iconMoon.style.display = '';
+    iconSun.style.display = 'none';
+    themeTip.textContent = 'Switch to light mode';
+  } else {
+    body.dataset.theme = 'light';
+    iconMoon.style.display = 'none';
+    iconSun.style.display = '';
+    themeTip.textContent = 'Switch to dark mode';
   }
 });
 
-const brandLabel=document.getElementById('brandLabel');
-const toggle=document.getElementById('toggle');
-const viewPortfolio=document.getElementById('view-portfolio');
-const viewWave=document.getElementById('view-wave');
-const msgInput=document.getElementById('msgInput');
-const sendBtn=document.getElementById('sendBtn');
-const attachBtn=document.getElementById('attachBtn');
-const dockFoot=document.getElementById('dockFoot');
-const suggestStrip=document.getElementById('suggestStrip');
-const modalOverlay=document.getElementById('modalOverlay');
-const modalThread=document.getElementById('modalThread');
-const modalClose=document.getElementById('modalClose');
+const brandLabel = document.getElementById('brandLabel');
+const toggle = document.getElementById('toggle');
+const viewPortfolio = document.getElementById('view-portfolio');
+const viewWave = document.getElementById('view-wave');
+const msgInput = document.getElementById('msgInput');
+const sendBtn = document.getElementById('sendBtn');
+const attachBtn = document.getElementById('attachBtn');
+const dockFoot = document.getElementById('dockFoot');
+const suggestStrip = document.getElementById('suggestStrip');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalThread = document.getElementById('modalThread');
+const modalClose = document.getElementById('modalClose');
 
-toggle.addEventListener('click',e=>{
-  const btn=e.target.closest('button[data-mode]');
-  if(!btn)return;
-  const mode=btn.dataset.mode;
-  if(body.dataset.mode===mode)return;
-  body.dataset.mode=mode;
-  toggle.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+toggle.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-mode]');
+  if (!btn) return;
+  const mode = btn.dataset.mode;
+  if (body.dataset.mode === mode) return;
+  body.dataset.mode = mode;
+  toggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
   suggestStrip.classList.remove('open');
-  if(mode==='portfolio'){
-    viewWave.style.display='none';viewPortfolio.style.display='flex';
-    msgInput.placeholder='Ask a question…';
-    attachBtn.style.display='none';
-    dockFoot.textContent='Portfolio mode: answers are pre-written, not AI-generated';
-    brandLabel.textContent='Sakthi';
-  }else{
-    viewPortfolio.style.display='none';viewWave.style.display='flex';
-    msgInput.placeholder='Message Wave…';
-    attachBtn.style.display='flex';
-    dockFoot.textContent='Wave mode: general AI assistant, can read uploaded documents.';
-    brandLabel.textContent='Wave';
+  if (mode === 'portfolio') {
+    viewWave.style.display = 'none';
+    viewPortfolio.style.display = 'flex';
+    msgInput.placeholder = 'Ask a question…';
+    attachBtn.style.display = 'none';
+    dockFoot.textContent = 'Portfolio mode: answers are pre-written, not AI-generated';
+    brandLabel.textContent = 'Sakthi';
+  } else {
+    viewPortfolio.style.display = 'none';
+    viewWave.style.display = 'flex';
+    msgInput.placeholder = 'Message Wave…';
+    attachBtn.style.display = 'flex';
+    dockFoot.textContent = 'Wave mode: general AI assistant, can read uploaded documents.';
+    brandLabel.textContent = 'Wave';
+    showUsageBar();
+    fetchUsage();
   }
-  msgInput.value='';sendBtn.disabled=true;
+  msgInput.value = '';
+  sendBtn.disabled = true;
 });
 
-/* Suggest strip on focus — portfolio chips and wave chips both use .chip class */
-const pfData=[
+const pfData = [
   {q:'A bit about him',a:`<p class="r-about-p">Sakthi is a Generative AI Engineer with around 2.5 years of experience working on RAG pipelines, LLM integrations, and semantic search. His work has mostly involved data ingestion, embeddings, retrieval tuning, and prompt design, with a focus on getting the outputs to actually be reliable and useful.</p><p class="r-about-p">He has worked on projects in investment banking and healthcare, both involving building AI on top of large document collections. Most of the cloud work has been on AWS, using Bedrock, Lambda, and S3.</p>`},
   {q:'Where he worked',a:`<div class="r-exp-item"><div class="r-exp-role">Generative AI Engineer</div><div class="r-exp-co">Data-driven IT Services Company</div><span class="r-exp-yr">Apr 2025 to present, Chennai</span><div class="r-exp-desc">Working on an AI-powered document search platform for a Swedish investment bank, built on AWS Bedrock using Claude. This involves hybrid RAG pipelines with LlamaIndex and Pinecone, automated summarisation for compliance documents, and serverless ingestion pipelines using Lambda and Step Functions. Prompt versioning and context compression helped bring down token costs, and teams spend less time on manual document review.</div><div class="r-tag-row"><span class="tag">AWS Bedrock</span><span class="tag">Claude LLM</span><span class="tag">LlamaIndex</span><span class="tag">Pinecone</span><span class="tag">Lambda</span><span class="tag">Step Functions</span><span class="tag">Docker</span></div></div><div class="r-exp-item"><div class="r-exp-role">Generative AI Developer</div><div class="r-exp-co">Digital Transformation &amp; IT Services Company</div><span class="r-exp-yr">Nov 2023 to Mar 2025, Bangalore</span><div class="r-exp-desc">Built an enterprise knowledge bot for a US healthcare client over 2000+ clinical documents, covering medical policies, provider manuals, and health plan docs. Used SentenceTransformers and FAISS for retrieval, with a LangChain chatbot on top for internal queries. Response accuracy improved through structured prompting and context filtering, and search effort for internal teams reduced noticeably.</div><div class="r-tag-row"><span class="tag">LangChain</span><span class="tag">SentenceTransformers</span><span class="tag">FAISS</span><span class="tag">Python</span><span class="tag">Lambda</span><span class="tag">S3</span></div></div>`},
   {q:'What he works with',a:`<div class="r-skill-wrap"><div class="r-skill"><span class="dot"></span>Retrieval-Augmented Generation<span class="tip">Building pipelines that ground LLM outputs in actual documents</span></div><div class="r-skill"><span class="dot"></span>Large Language Models<span class="tip">Working with LLMs via APIs for search, Q&amp;A, and summarisation tasks</span></div><div class="r-skill"><span class="dot"></span>Prompt Engineering<span class="tip">Structuring prompts for consistent, reliable outputs across query types</span></div><div class="r-skill"><span class="dot"></span>Semantic Search<span class="tip">Embedding-based similarity search over large document collections</span></div><div class="r-skill"><span class="dot"></span>Python<span class="tip">Primary language for pipeline development, scripting, and integrations</span></div><div class="r-skill"><span class="dot"></span>AWS Bedrock / Lambda / S3<span class="tip">Cloud-native AI hosting, serverless pipelines, and document storage on AWS</span></div><div class="r-skill"><span class="dot"></span>LangChain / LlamaIndex<span class="tip">Orchestration frameworks used across both roles for RAG and chatbot work</span></div><div class="r-skill"><span class="dot"></span>Vector Databases<span class="tip">Pinecone and FAISS for storing and querying embeddings at scale</span></div><div class="r-skill"><span class="dot"></span>FastAPI<span class="tip">Exposing AI capabilities as REST endpoints</span></div><div class="r-skill"><span class="dot"></span>Fine-tuning &amp; Evaluation<span class="tip">Iterating on model behaviour and measuring output quality</span></div><div class="r-skill"><span class="dot"></span>Embeddings<span class="tip">SentenceTransformers for dense vector representations of text</span></div><div class="r-skill"><span class="dot"></span>NLP<span class="tip">Text classification, similarity, chunking, and extraction tasks</span></div></div>`},
   {q:'How to reach him',a:`<p class="r-about-p">Open to project conversations, roles, or just a chat.</p><div class="r-contact-stack"><a href="mailto:sakthigrish.in@gmail.com" class="r-contact-link"><div class="r-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="r-contact-lbl">Email</div><div class="r-contact-val">sakthigrish.in@gmail.com</div></div><span class="tip">Usually replies within a day</span></a><a href="https://linkedin.com/in/sakthigrish04" target="_blank" class="r-contact-link"><div class="r-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><div class="r-contact-lbl">LinkedIn</div><div class="r-contact-val">linkedin.com/in/sakthigrish04</div></div><span class="tip">Open to connect</span></a></div>`}
 ];
 
-const waveChips=[
-  {label:'Write a bio',fill:'Write a short professional bio for a software engineer'},
-  {label:'SQL vs NoSQL',fill:'Explain the difference between SQL and NoSQL databases'},
-  {label:'Review code',fill:'Review this code and suggest improvements'},
-  {label:'Draft an email',fill:'Help me draft a cold outreach email'},
+const waveChips = [
+  {label:'Write a bio', fill:'Write a short professional bio for a software engineer'},
+  {label:'SQL vs NoSQL', fill:'Explain the difference between SQL and NoSQL databases'},
+  {label:'Review code', fill:'Review this code and suggest improvements'},
+  {label:'Draft an email', fill:'Help me draft a cold outreach email'},
 ];
 
-msgInput.addEventListener('focus',()=>{
-  suggestStrip.innerHTML='';
-  if(body.dataset.mode==='portfolio'){
-    pfData.forEach(item=>{
-      const chip=document.createElement('div');
-      chip.className='chip';chip.textContent=item.q;
-      chip.onclick=()=>askPortfolioQuestion(item);
+msgInput.addEventListener('focus', () => {
+  suggestStrip.innerHTML = '';
+  if (body.dataset.mode === 'portfolio') {
+    pfData.forEach(item => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = item.q;
+      chip.onclick = () => askPortfolioQuestion(item);
       suggestStrip.appendChild(chip);
     });
-  }else{
-    waveChips.forEach(item=>{
-      const chip=document.createElement('div');
-      chip.className='chip';chip.textContent=item.label;
-      chip.onclick=()=>{msgInput.value='';sendWaveMessage(item.fill)};
+  } else {
+    waveChips.forEach(item => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = item.label;
+      chip.onclick = () => { msgInput.value = ''; sendWaveMessage(item.fill); };
       suggestStrip.appendChild(chip);
     });
   }
   suggestStrip.classList.add('open');
 });
-msgInput.addEventListener('blur',()=>{setTimeout(()=>suggestStrip.classList.remove('open'),160)});
-msgInput.addEventListener('input',()=>{
-  msgInput.style.height='auto';
-  msgInput.style.height=Math.min(msgInput.scrollHeight,120)+'px';
-  sendBtn.disabled=!msgInput.value.trim();
+
+msgInput.addEventListener('blur', () => {
+  setTimeout(() => suggestStrip.classList.remove('open'), 160);
 });
-msgInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleSend();}});
-sendBtn.addEventListener('click',handleSend);
-attachBtn.addEventListener('click',()=>document.getElementById('fileInput').click());
+
+msgInput.addEventListener('input', () => {
+  msgInput.style.height = 'auto';
+  msgInput.style.height = Math.min(msgInput.scrollHeight, 120) + 'px';
+  sendBtn.disabled = !msgInput.value.trim();
+});
+
+msgInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    handleSend();
+  }
+});
+
+sendBtn.addEventListener('click', handleSend);
+attachBtn.addEventListener('click', () => document.getElementById('fileInput').click());
 document.getElementById('fileInput').addEventListener('change', e => {
   if (e.target.files[0]) sendWaveFile(e.target.files[0]);
   e.target.value = '';
 });
 
-function handleSend(){
-  const text=msgInput.value.trim();
-  if(!text)return;
-  if(body.dataset.mode==='portfolio'){
-    openModal();appendModalQ(text);
-    setTimeout(()=>appendModalA('Tap one of the chips above to get a pre-written answer, or switch to Wave for a live conversation.'),400);
-  }else{
+function handleSend() {
+  const text = msgInput.value.trim();
+  if (!text) return;
+  if (body.dataset.mode === 'portfolio') {
+    openModal();
+    appendModalQ(text);
+    setTimeout(() => appendModalA('Tap one of the chips above to get a pre-written answer, or switch to Wave for a live conversation.'), 400);
+  } else {
     sendWaveMessage(text);
   }
-  msgInput.value='';msgInput.style.height='auto';sendBtn.disabled=true;
+  msgInput.value = '';
+  msgInput.style.height = 'auto';
+  sendBtn.disabled = true;
   suggestStrip.classList.remove('open');
 }
 
-function openModal(){modalOverlay.classList.add('active');body.style.overflow='hidden'}
-function closeModal(){modalOverlay.classList.remove('active');body.style.overflow=''}
-modalClose.onclick=closeModal;
-modalOverlay.onclick=e=>{if(e.target===modalOverlay)closeModal()};
+function openModal() { modalOverlay.classList.add('active'); body.style.overflow = 'hidden'; }
+function closeModal() { modalOverlay.classList.remove('active'); body.style.overflow = ''; }
+modalClose.onclick = closeModal;
+modalOverlay.onclick = e => { if (e.target === modalOverlay) closeModal(); };
 
-function appendModalQ(text){
-  const el=document.createElement('div');el.className='modal-q';el.textContent=text;
-  modalThread.appendChild(el);scroll();
-}
-function appendModalA(html){
-  const el=document.createElement('div');el.className='modal-a';el.innerHTML=html;
-  modalThread.appendChild(el);scroll();
-}
-function scroll(){modalThread.parentElement.scrollTo({top:modalThread.parentElement.scrollHeight,behavior:'smooth'})}
-
-function askPortfolioQuestion(item){
-  openModal();modalThread.innerHTML='';
-  appendModalQ(item.q);setTimeout(()=>appendModalA(item.a),320);
+function appendModalQ(text) {
+  const el = document.createElement('div');
+  el.className = 'modal-q';
+  el.textContent = text;
+  modalThread.appendChild(el);
+  scrollModal();
 }
 
-/* WAVE */
-const waveMsgs=document.getElementById('waveMsgs');
-const waveEmpty=document.getElementById('waveEmpty');
-const waveMsgsWrap=document.getElementById('waveMsgsWrap');
-const scrollBtn=document.getElementById('scrollBtn');
-let waveHistory=[];
+function appendModalA(html) {
+  const el = document.createElement('div');
+  el.className = 'modal-a';
+  el.innerHTML = html;
+  modalThread.appendChild(el);
+  scrollModal();
+}
+
+function scrollModal() {
+  modalThread.parentElement.scrollTo({ top: modalThread.parentElement.scrollHeight, behavior: 'smooth' });
+}
+
+function askPortfolioQuestion(item) {
+  openModal();
+  modalThread.innerHTML = '';
+  appendModalQ(item.q);
+  setTimeout(() => appendModalA(item.a), 320);
+}
+
+/* ── WAVE ─────────────────────────────────────────────────────────────────── */
+const waveMsgs = document.getElementById('waveMsgs');
+const waveEmpty = document.getElementById('waveEmpty');
+const waveMsgsWrap = document.getElementById('waveMsgsWrap');
+const scrollBtn = document.getElementById('scrollBtn');
+const usageBarWrap = document.getElementById('usageBarWrap');
+const usageBarFill = document.getElementById('usageBarFill');
+const usageBarLabel = document.getElementById('usageBarLabel');
+const dockFootEl = document.getElementById('dockFoot');
+
+let waveHistory = [];
 const waveSessionId = crypto.randomUUID();
 const WAVE_BACKEND = 'https://sakthxe-wave-backend.hf.space';
 
-/* Scroll-to-bottom button logic */
-function updateScrollBtn(){
-  if(!waveMsgsWrap)return;
-  const atBottom=waveMsgsWrap.scrollHeight-waveMsgsWrap.scrollTop-waveMsgsWrap.clientHeight<60;
-  scrollBtn.classList.toggle('visible',!atBottom);
+/* Usage bar */
+function updateUsageBar(usage) {
+  if (!usage) return;
+  const pct = Math.min(100, Math.round(usage.percent));
+  usageBarFill.style.width = pct + '%';
+  usageBarFill.classList.remove('warn', 'danger');
+  if (usage.limit_reached || pct >= 95) {
+    usageBarFill.classList.add('danger');
+    usageBarLabel.textContent = 'Daily limit reached';
+    disableWaveInput(true);
+  } else if (pct >= 70) {
+    usageBarFill.classList.add('warn');
+    usageBarLabel.textContent = pct + '% used today';
+  } else {
+    usageBarLabel.textContent = pct + '% used today';
+  }
 }
-waveMsgsWrap.addEventListener('scroll',updateScrollBtn,{passive:true});
-scrollBtn.addEventListener('click',()=>{
-  waveMsgsWrap.scrollTo({top:waveMsgsWrap.scrollHeight,behavior:'smooth'});
+
+function showUsageBar() {
+  dockFootEl.style.display = 'none';
+  usageBarWrap.style.display = 'flex';
+}
+
+function disableWaveInput(disabled) {
+  msgInput.disabled = disabled;
+  msgInput.placeholder = disabled
+    ? 'Wave will be back tomorrow — daily limit reached'
+    : 'Message Wave…';
+  if (disabled) sendBtn.disabled = true;
+}
+
+async function fetchUsage() {
+  try {
+    const res = await fetch(`${WAVE_BACKEND}/usage`);
+    const usage = await res.json();
+    updateUsageBar(usage);
+  } catch (err) {
+    console.error('[Wave] usage fetch failed', err);
+  }
+}
+
+/* Scroll */
+function updateScrollBtn() {
+  if (!waveMsgsWrap) return;
+  const atBottom = waveMsgsWrap.scrollHeight - waveMsgsWrap.scrollTop - waveMsgsWrap.clientHeight < 60;
+  scrollBtn.classList.toggle('visible', !atBottom);
+}
+
+waveMsgsWrap.addEventListener('scroll', updateScrollBtn, { passive: true });
+scrollBtn.addEventListener('click', () => {
+  waveMsgsWrap.scrollTo({ top: waveMsgsWrap.scrollHeight, behavior: 'smooth' });
 });
 
-function waveScroll(){waveMsgsWrap.scrollTo({top:waveMsgsWrap.scrollHeight,behavior:'smooth'})}
+function waveScroll() {
+  waveMsgsWrap.scrollTo({ top: waveMsgsWrap.scrollHeight, behavior: 'smooth' });
+}
 
+/* Chat */
 async function sendWaveMessage(text) {
   waveEmpty.style.display = 'none';
   waveMsgsWrap.style.display = 'block';
@@ -540,7 +615,6 @@ async function sendWaveMessage(text) {
   bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
   aiMsg.appendChild(bubble);
   waveMsgs.appendChild(aiMsg);
-
   waveScroll();
 
   waveHistory.push({ role: 'user', content: text });
@@ -577,31 +651,78 @@ async function sendWaveMessage(text) {
         if (event.type === 'token') {
           if (firstToken) { bubble.innerHTML = ''; firstToken = false; }
           fullText += event.content;
-          bubble.innerHTML = escHtml(fullText).replace(/\n/g, '<br>');
+          bubble.innerHTML = renderMarkdown(fullText) + '<span class="stream-cursor"></span>';
           waveScroll();
 
         } else if (event.type === 'citations') {
           const citeEl = document.createElement('div');
-          citeEl.style.cssText = 'margin-top:8px;font-size:.75rem;color:var(--muted)';
+          citeEl.className = 'msg-citations';
           const items = event.content.map(c =>
-            `<span style="display:inline-block;background:var(--accent-soft);border:1px solid var(--accent-soft2);border-radius:6px;padding:2px 8px;margin:2px 4px 2px 0">📄 ${escHtml(c.source)} · p.${c.page}</span>`
+            `<div class="cite-item"><i class="cite-icon">📄</i> ${escHtml(c.source)} <span class="cite-page">· p.${c.page}</span></div>`
           ).join('');
-          citeEl.innerHTML = `<div style="font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;font-family:var(--ff-mono)">Sources</div>${items}`;
+          citeEl.innerHTML = `<div class="cite-label">Sources</div>${items}`;
           aiMsg.appendChild(citeEl);
 
+        } else if (event.type === 'usage') {
+          updateUsageBar(event.content);
+
+        } else if (event.type === 'limit_reached') {
+          if (firstToken) { bubble.innerHTML = ''; firstToken = false; }
+          bubble.innerHTML = renderMarkdown(event.content);
+          disableWaveInput(true);
+          usageBarFill.classList.add('danger');
+          usageBarFill.style.width = '100%';
+          usageBarLabel.textContent = 'Daily limit reached';
+
         } else if (event.type === 'done') {
+          bubble.innerHTML = renderMarkdown(fullText);
           waveHistory.push({ role: 'assistant', content: fullText });
           setTimeout(updateScrollBtn, 120);
         }
       }
     }
-} catch (err) {
+  } catch (err) {
     bubble.textContent = 'Could not reach Wave right now. Please try again.';
     console.error('[Wave]', err);
   }
 }
 
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderMarkdown(text) {
+  let html = escHtml(text);
+
+  html = html.replace(/```([\s\S]*?)```/g, (_, code) =>
+    `<pre><code>${code.trim()}</code></pre>`
+  );
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+
+  const lines = html.split('\n');
+  const out = [];
+  let inList = false;
+  for (const line of lines) {
+    const bulletMatch = line.match(/^\s*[*\-]\s+(.*)/);
+    if (bulletMatch) {
+      if (!inList) { out.push('<ul>'); inList = true; }
+      out.push(`<li>${bulletMatch[1]}</li>`);
+    } else {
+      if (inList) { out.push('</ul>'); inList = false; }
+      out.push(line);
+    }
+  }
+  if (inList) out.push('</ul>');
+  html = out.join('\n');
+  html = html.replace(/\n(?!<\/?(ul|li|pre|code))/g, '<br>');
+
+  return html;
+}
+
 async function sendWaveFile(file) {
   waveEmpty.style.display = 'none';
   waveMsgsWrap.style.display = 'block';
@@ -632,71 +753,87 @@ async function sendWaveFile(file) {
   waveScroll();
 }
 
-/* AMBIENT CANVAS (particle field) */
-const cv=document.getElementById('bgcv');
-const ctx=cv.getContext('2d');
-let w,h,pts=[];
-function init(){
-  w=cv.width=window.innerWidth;h=cv.height=window.innerHeight;pts=[];
-  for(let i=0;i<26;i++)pts.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.32,vy:(Math.random()-.5)*.32});
+/* ── AMBIENT CANVAS ───────────────────────────────────────────────────────── */
+const cv = document.getElementById('bgcv');
+const ctx = cv.getContext('2d');
+let w, h, pts = [];
+
+function init() {
+  w = cv.width = window.innerWidth;
+  h = cv.height = window.innerHeight;
+  pts = [];
+  for (let i = 0; i < 26; i++) {
+    pts.push({
+      x: Math.random() * w, y: Math.random() * h,
+      vx: (Math.random() - .5) * .32, vy: (Math.random() - .5) * .32
+    });
+  }
 }
-function draw(){
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle=getComputedStyle(body).getPropertyValue('--accent').trim();
-  ctx.globalAlpha=0.1;
-  pts.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
-    ctx.beginPath();ctx.arc(p.x,p.y,1.3,0,Math.PI*2);ctx.fill();
+
+function draw() {
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = getComputedStyle(body).getPropertyValue('--accent').trim();
+  ctx.globalAlpha = 0.1;
+  pts.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > w) p.vx *= -1;
+    if (p.y < 0 || p.y > h) p.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 1.3, 0, Math.PI * 2);
+    ctx.fill();
   });
   requestAnimationFrame(draw);
 }
-window.addEventListener('resize',init);init();draw();
 
-/* WAVE LINES CANVAS — flowing centered lines in wave hero */
-(function(){
-  const lc=document.getElementById('waveLinesCv');
-  if(!lc)return;
-  const lx=lc.getContext('2d');
-  let lt=0;
+window.addEventListener('resize', init);
+init();
+draw();
 
-  function resizeLines(){
-    const p=lc.parentElement;
-    lc.width=p.offsetWidth;lc.height=p.offsetHeight;
+/* ── WAVE LINES CANVAS ────────────────────────────────────────────────────── */
+(function () {
+  const lc = document.getElementById('waveLinesCv');
+  if (!lc) return;
+  const lx = lc.getContext('2d');
+
+  function resizeLines() {
+    const p = lc.parentElement;
+    lc.width = p.offsetWidth;
+    lc.height = p.offsetHeight;
   }
 
-  function drawLines(ts){
-    if(body.dataset.mode!=='wave'){requestAnimationFrame(drawLines);return}
+  function drawLines(ts) {
+    if (body.dataset.mode !== 'wave') { requestAnimationFrame(drawLines); return; }
     resizeLines();
-    lx.clearRect(0,0,lc.width,lc.height);
-    const t=ts*0.00028;
-    const accentRaw=getComputedStyle(body).getPropertyValue('--accent').trim();
-    const isLight=body.dataset.theme==='light';
-    const lineAlpha=isLight?0.07:0.09;
-    const numLines=5;
-    const cx=lc.width/2;
-    const cy=lc.height/2;
+    lx.clearRect(0, 0, lc.width, lc.height);
+    const t = ts * 0.00028;
+    const accentRaw = getComputedStyle(body).getPropertyValue('--accent').trim();
+    const isLight = body.dataset.theme === 'light';
+    const lineAlpha = isLight ? 0.07 : 0.09;
+    const numLines = 5;
+    const cx = lc.width / 2;
+    const cy = lc.height / 2;
 
-    for(let i=0;i<numLines;i++){
-      const phase=(i/numLines)*Math.PI*2;
-      const yOff=(i-numLines/2)*28;
+    for (let i = 0; i < numLines; i++) {
+      const phase = (i / numLines) * Math.PI * 2;
+      const yOff = (i - numLines / 2) * 28;
       lx.beginPath();
-      lx.strokeStyle=accentRaw;
-      lx.globalAlpha=lineAlpha*(1-Math.abs(i-numLines/2)/numLines*0.5);
-      lx.lineWidth=1;
-      lx.shadowBlur=0;
-      for(let px=0;px<=lc.width;px+=3){
-        const nx=(px-cx)/lc.width;
-        const ny=Math.sin(nx*Math.PI*2.2+t+phase)*14
-                +Math.sin(nx*Math.PI*3.8+t*0.7+phase)*7
-                +Math.cos(nx*Math.PI*1.4+t*0.5+phase)*5;
-        if(px===0)lx.moveTo(px,cy+yOff+ny);
-        else lx.lineTo(px,cy+yOff+ny);
+      lx.strokeStyle = accentRaw;
+      lx.globalAlpha = lineAlpha * (1 - Math.abs(i - numLines / 2) / numLines * 0.5);
+      lx.lineWidth = 1;
+      lx.shadowBlur = 0;
+      for (let px = 0; px <= lc.width; px += 3) {
+        const nx = (px - cx) / lc.width;
+        const ny = Math.sin(nx * Math.PI * 2.2 + t + phase) * 14
+                 + Math.sin(nx * Math.PI * 3.8 + t * 0.7 + phase) * 7
+                 + Math.cos(nx * Math.PI * 1.4 + t * 0.5 + phase) * 5;
+        if (px === 0) lx.moveTo(px, cy + yOff + ny);
+        else lx.lineTo(px, cy + yOff + ny);
       }
       lx.stroke();
     }
     requestAnimationFrame(drawLines);
   }
+
   requestAnimationFrame(drawLines);
 })();
 </script>
