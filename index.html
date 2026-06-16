@@ -438,7 +438,9 @@ toggle.addEventListener('click',e=>{
     viewWave.style.display='none';viewPortfolio.style.display='flex';
     msgInput.placeholder='Ask a question…';
     attachBtn.style.display='none';
+    dockFootEl.style.display='';
     dockFoot.textContent='Portfolio mode: answers are pre-written, not AI-generated';
+    usageBarWrap.style.display='none';
     brandLabel.textContent='Sakthi';
   }else{
     viewPortfolio.style.display='none';viewWave.style.display='flex';
@@ -446,7 +448,6 @@ toggle.addEventListener('click',e=>{
     attachBtn.style.display='flex';
     dockFoot.textContent='Wave mode: general AI assistant, can read uploaded documents.';
     brandLabel.textContent='Wave';
-    showUsageBar();
     fetchUsage();
   }
   msgInput.value='';sendBtn.disabled=true;
@@ -604,6 +605,7 @@ scrollBtn.addEventListener('click',()=>{
 function waveScroll(){waveMsgsWrap.scrollTo({top:waveMsgsWrap.scrollHeight,behavior:'smooth'})}
 
 async function sendWaveMessage(text) {
+  showUsageBar();
   waveEmpty.style.display = 'none';
   waveMsgsWrap.style.display = 'block';
 
@@ -699,6 +701,10 @@ function renderMarkdown(text) {
 
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
 
+  html = html.replace(/^#### (.+)$/gm, '<h4 style="margin:8px 0 4px;font-size:.82rem;color:var(--fg)">$1</h4>');
+  html = html.replace(/^### (.+)$/gm, '<h3 style="margin:10px 0 5px;font-size:.88rem;color:var(--fg)">$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2 style="margin:12px 0 6px;font-size:.94rem;color:var(--fg)">$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1 style="margin:14px 0 7px;font-size:1rem;color:var(--fg)">$1</h1>');
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
 
@@ -709,7 +715,7 @@ function renderMarkdown(text) {
   let out = [];
   let inList = false;
   for (const line of lines) {
-    const bulletMatch = line.match(/^\s*[\*\-]\s+(.*)/);
+    const bulletMatch = line.match(/^\s*[\*\-\+]\s+(.*)/);
     if (bulletMatch) {
       if (!inList) { out.push('<ul>'); inList = true; }
       out.push(`<li>${bulletMatch[1]}</li>`);
@@ -795,7 +801,7 @@ window.addEventListener('resize',init);init();draw();
     const t=ts*0.00028;
     const accentRaw=getComputedStyle(body).getPropertyValue('--accent').trim();
     const isLight=body.dataset.theme==='light';
-    const lineAlpha=isLight?0.07:0.09;
+    const lineAlpha=isLight?0.18:0.28;
     const numLines=5;
     const cx=lc.width/2;
     const cy=lc.height/2;
