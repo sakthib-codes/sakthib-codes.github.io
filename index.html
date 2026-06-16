@@ -495,7 +495,29 @@ msgInput.addEventListener('input',()=>{
   msgInput.style.height='auto';
   msgInput.style.height=Math.min(msgInput.scrollHeight,120)+'px';
   sendBtn.disabled=!msgInput.value.trim();
+
+  // \web bubble indicator
+  const val = msgInput.value;
+  let webChip = document.getElementById('webSearchChip');
+  if(val.startsWith('\\web') && body.dataset.mode === 'wave'){
+    if(!webChip){
+      webChip = document.createElement('div');
+      webChip.id = 'webSearchChip';
+      webChip.style.cssText = `
+        display:inline-flex;align-items:center;gap:5px;
+        font-family:var(--ff-mono);font-size:.68rem;font-weight:500;
+        padding:4px 10px;border-radius:100px;margin-bottom:6px;
+        background:var(--accent-soft);border:1px solid var(--accent-soft2);
+        color:var(--accent);
+      `;
+      webChip.innerHTML = '🔍 Web search mode';
+      document.getElementById('docChipWrap').prepend(webChip);
+    }
+  } else {
+    if(webChip) webChip.remove();
+  }
 });
+
 msgInput.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();handleSend();}});
 sendBtn.addEventListener('click',handleSend);
 attachBtn.addEventListener('click',()=>document.getElementById('fileInput').click());
