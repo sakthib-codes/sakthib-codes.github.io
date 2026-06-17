@@ -442,6 +442,8 @@ toggle.addEventListener('click',e=>{
     dockFoot.textContent='Portfolio mode: answers are pre-written, not AI-generated';
     usageBarWrap.style.display='none';
     brandLabel.textContent='Sakthi';
+    const wc = document.getElementById('webSearchChip');
+    if(wc) wc.remove();
   }else{
     viewPortfolio.style.display='none';viewWave.style.display='flex';
     msgInput.placeholder='Message Wave…';
