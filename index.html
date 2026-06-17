@@ -635,7 +635,8 @@ async function sendWaveMessage(text) {
 
   const userMsg = document.createElement('div');
   userMsg.className = 'msg user';
-  userMsg.innerHTML = '<div class="msg-bubble">' + escHtml(text) + '</div>';
+  const displayText = text.startsWith('\\web') ? text.slice(4).trim() : text;
+  userMsg.innerHTML = '<div class="msg-bubble">' + escHtml(displayText) + '</div>';
   waveMsgs.appendChild(userMsg);
 
   const aiMsg = document.createElement('div');
